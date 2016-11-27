@@ -820,9 +820,10 @@ void play()
     do {
       ch = getch();
       if (ch == 'x') return;
-      if (ch == 'r')
+      if (ch == 'r') {
 	if (change_ranks()) break;
 	else return;
+      }
     }
     while (ch != ' ');
   }
