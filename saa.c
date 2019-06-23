@@ -8,7 +8,7 @@ argument giving the number of ranks to be used. */
 
 /* Ported to MSDOS in November 1994. */
 
-static char copyright[] = "Copyright 1994 by John D. Ramsdell.";
+static char copyright[] = "Copyright (c) 1994 by John D. Ramsdell.";
 /* Permission to use, copy, modify, and distribute this software and
 its documentation for any purpose and without fee is hereby granted,
 provided that the above copyright notice appear in all copies.  John
@@ -441,6 +441,7 @@ char *author[] = {
   "program can be given a command line argument specifying the number of\n",
   "ranks to be used.\n\n\n\n",
   "Streets and Alleys version 1.3 was written by John D. Ramsdell.\n\n",
+  "Copyright (c) 1994 by John D. Ramsdell.\n",
   "Permission to use, copy, modify, and distribute this software and\n",
   "its documentation for any purpose and without fee is hereby granted,\n",
   "provided that the above copyright notice appear in all copies.  John\n",
@@ -845,7 +846,7 @@ int main(argc, argv)
      char *argv[];
 {
   program_name = argv[0];
-  if (argc > 2) usage();
+  if (argc > 2) return usage();
   if (argc == 2) {		/* Small game requested. */
     cards = atoi(argv[1]);
     if (cards < minranks || cards > nranks) return usage();
