@@ -1,0 +1,9 @@
+[package]
+name = "saa"
+version = "1.4.0"
+authors = ["John D. Ramsdell <ramsdell@mitre.org>"]
+edition = "2018"
+
+[dependencies]
+ncurses = "5.99.0"
+rand = "0.4.0"
