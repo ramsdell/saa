@@ -214,14 +214,7 @@ impl Screen {
         self.w.addstr("Move from stack ");
         let from = self.get_cmd();
         match from {
-            '1' => self.place_card(b, from),
-            '2' => self.place_card(b, from),
-            '3' => self.place_card(b, from),
-            '4' => self.place_card(b, from),
-            '5' => self.place_card(b, from),
-            '6' => self.place_card(b, from),
-            '7' => self.place_card(b, from),
-            '8' => self.place_card(b, from),
+            '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' => self.place_card(b, from),
             'q' => return true,
             '?' => return self.help(b),
             _ => {
@@ -256,14 +249,9 @@ impl Screen {
                 match to {
                     // Move card to destination
                     '0' => return self.move_to_foundation(b, s, c),
-                    '1' => return self.move_to_stack(b, from, s, c, to),
-                    '2' => return self.move_to_stack(b, from, s, c, to),
-                    '3' => return self.move_to_stack(b, from, s, c, to),
-                    '4' => return self.move_to_stack(b, from, s, c, to),
-                    '5' => return self.move_to_stack(b, from, s, c, to),
-                    '6' => return self.move_to_stack(b, from, s, c, to),
-                    '7' => return self.move_to_stack(b, from, s, c, to),
-                    '8' => return self.move_to_stack(b, from, s, c, to),
+                    '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' => {
+                        return self.move_to_stack(b, from, s, c, to)
+                    }
                     'q' => return true,
                     '?' => return self.help(b),
                     _ => {
