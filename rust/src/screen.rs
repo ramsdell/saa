@@ -303,6 +303,7 @@ impl Screen {
         false
     }
 
+    #[allow(clippy::many_single_char_names)]
     fn move_to_stack(&mut self, b: &mut Board, from: char, s: usize, c: Card, to: char) -> bool {
         let t = char2u(to) - 1;
         // Can card be moved to this stack?
