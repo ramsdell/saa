@@ -161,7 +161,7 @@ impl Screen {
             for c in b.stack_iter(i) {
                 self.goto_stack_top(i as i32, j);
                 self.show_card(*c);
-                j = j + 1;
+                j += 1;
             }
         }
     }
@@ -214,13 +214,15 @@ impl Screen {
         self.w.addstr("Move from stack ");
         let from = self.get_cmd();
         match from {
-            '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' => self.place_card(b, from),
-            'q' => return true,
-            '?' => return self.help(b),
+            '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' => {
+                self.place_card(b, from)
+            }
+            'q' => true,
+            '?' => self.help(b),
             _ => {
                 self.clear_status();
                 self.w.addstr("Bad input.  Type ? for help.");
-                return false;
+                false
             }
         }
     }
@@ -236,7 +238,7 @@ impl Screen {
                 self.w.addstr("There is no card in stack ");
                 self.w.addch(from);
                 self.w.addch('.');
-                return false;
+                false
             }
             Some(c) => {
                 self.clear_prompt();
@@ -248,16 +250,16 @@ impl Screen {
                 let to = self.get_cmd();
                 match to {
                     // Move card to destination
-                    '0' => return self.move_to_foundation(b, s, c),
+                    '0' => self.move_to_foundation(b, s, c),
                     '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' => {
-                        return self.move_to_stack(b, from, s, c, to)
+                        self.move_to_stack(b, from, s, c, to)
                     }
-                    'q' => return true,
-                    '?' => return self.help(b),
+                    'q' => true,
+                    '?' => self.help(b),
                     _ => {
                         self.clear_status();
                         self.w.addstr("Bad input.  Type ? for help.");
-                        return false;
+                        false
                     }
                 }
             }
@@ -267,16 +269,16 @@ impl Screen {
     // Implement aliases for commands
     fn get_cmd(&self) -> char {
         match self.w.getch() {
-            ' ' => return '0', // Aliases for use when there
-            'j' => return '1', // is no numeric keyad.
-            'k' => return '2',
-            'l' => return '3',
-            ';' => return '4',
-            'u' => return '5',
-            'i' => return '6',
-            'o' => return '7',
-            'p' => return '8',
-            c => return c,
+            ' ' => '0', // Aliases for use when there
+            'j' => '1', // is no numeric keyad.
+            'k' => '2',
+            'l' => '3',
+            ';' => '4',
+            'u' => '5',
+            'i' => '6',
+            'o' => '7',
+            'p' => '8',
+            c => c,
         }
     }
 
@@ -304,7 +306,14 @@ impl Screen {
     }
 
     #[allow(clippy::many_single_char_names)]
-    fn move_to_stack(&mut self, b: &mut Board, from: char, s: usize, c: Card, to: char) -> bool {
+    fn move_to_stack(
+        &mut self,
+        b: &mut Board,
+        from: char,
+        s: usize,
+        c: Card,
+        to: char,
+    ) -> bool {
         let t = char2u(to) - 1;
         // Can card be moved to this stack?
         let can_move = match b.last_card(t) {

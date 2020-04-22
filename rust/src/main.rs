@@ -13,7 +13,7 @@ extern crate saa;
 use std::env;
 
 const DEFAULT_RANKS: usize = 11;
-const VERSION: &'static str = env!("CARGO_PKG_VERSION");
+const VERSION: &str = env!("CARGO_PKG_VERSION");
 
 fn main() {
     let args: Vec<String> = env::args().collect();

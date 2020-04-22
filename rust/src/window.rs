@@ -83,3 +83,9 @@ impl Window {
         ncurses::endwin()
     }
 }
+
+impl Default for Window {
+    fn default() -> Self {
+        Self::new()
+    }
+}

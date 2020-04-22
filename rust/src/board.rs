@@ -133,7 +133,7 @@ impl Board {
                 return false;
             }
         }
-        return true;
+        true
     }
 
     /// Add a card to the top of a stack
@@ -199,32 +199,28 @@ impl Board {
         // Shuffle
         for i in 0..size {
             let j = rand::thread_rng().gen_range(0, size);
-            let k = deck[i];
-            deck[i] = deck[j];
-            deck[j] = k;
+            deck.swap(i, j);
         }
 
         // Deal cards
-        let mut i = 0;
-        for c in deck.iter() {
+        for (i, c) in deck.iter().enumerate() {
             self.push_card(i % STACKS, *c);
-            i = i + 1
         }
     }
 }
 
 // A stack is done if no card is out of order.
-fn is_stack_done(s: &Vec<usize>) -> bool {
+fn is_stack_done(s: &[usize]) -> bool {
     match s.len() {
-        0 => return true,
-        1 => return true,
+        0 => true,
+        1 => true,
         n => {
             for i in 1..n {
                 if card2rank(s[i - 1]) <= card2rank(s[i]) {
                     return false;
                 }
             }
-            return true;
+            true
         }
     }
 }
